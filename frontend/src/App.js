@@ -2,15 +2,17 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import PostList from "./components/PostList";
 import PostView from "./components/PostView";
+import "../src/app.css";
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<PostList />} />
-      <Route path="/post/:id" element={<PostView />} />
-    </Routes>
+    <div className="container">
+      <Routes>
+        <Route path="/" element={<PostList />} />
+        <Route path="/post/:id" element={<PostView />} />
+      </Routes>
+    </div>
   );
 };
 
 export default App;
-  

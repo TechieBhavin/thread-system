@@ -32,7 +32,7 @@ const PostList = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="card">
       <h2>Create Post</h2>
 
       <input
@@ -57,8 +57,9 @@ const PostList = () => {
 
       {posts.map((post) => (
         <div
+        className="post-card"
           key={post._id}
-          className="comment"
+        //   className="comment"
           style={{ cursor: "pointer" }}
           onClick={() => navigate(`/post/${post._id}`)}
         >
@@ -66,7 +67,7 @@ const PostList = () => {
           <p style={{ color: "#57606a" }}>{post.content}</p>
         </div>
       ))}
-    </div>
+    </div>  
   );
 };
 

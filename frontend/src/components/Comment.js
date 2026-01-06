@@ -25,42 +25,43 @@ const Comment = ({ comment, postId, level = 0, refreshComments }) => {
   };
 
   return (
-    <div
-      className="comment"
-      style={{ marginLeft: level * 20 }}
-    >
-      <p>{comment.content}</p>
+    <div className="comment" style={{ marginLeft: level * 20 }}>
+      <div className="comment-content">
+        <p>{comment.content}</p>
 
-      <button onClick={() => setIsReplying(true)}>Reply</button>
+        <button className="secondary" onClick={() => setIsReplying(true)}>
+          Reply
+        </button>
 
-      {isReplying && (
-        <div className="reply-box">
-          <p className="replying-label">
-            Replying to: <strong>{comment.content}</strong>
-          </p>
+        {isReplying && (
+          <div className="reply-box">
+            <p className="replying-label">
+              Replying to: <strong>{comment.content}</strong>
+            </p>
 
-          <textarea
-            value={replyText}
-            onChange={(e) => setReplyText(e.target.value)}
-            placeholder="Write your reply..."
-          />
+            <textarea
+              value={replyText}
+              onChange={(e) => setReplyText(e.target.value)}
+              placeholder="Write your reply..."
+            />
 
-          <div className="reply-actions">
-            <button onClick={handleReplySubmit}>Submit</button>
-            <button onClick={() => setIsReplying(false)}>Cancel</button>
+            <div className="reply-actions">
+              <button onClick={handleReplySubmit}>Submit</button>
+              <button onClick={() => setIsReplying(false)}>Cancel</button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {comment.replies?.map((reply) => (
-        <Comment
-          key={reply._id}
-          comment={reply}
-          postId={postId}
-          level={level + 1}
-          refreshComments={refreshComments}
-        />
-      ))}
+        {comment.replies?.map((reply) => (
+          <Comment
+            key={reply._id}
+            comment={reply}
+            postId={postId}
+            level={level + 1}
+            refreshComments={refreshComments}
+          />
+        ))}
+      </div>
     </div>
   );
 };
