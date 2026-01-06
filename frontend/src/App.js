@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import PostList from "./components/PostList";
 import PostView from "./components/PostView";
-import "../src/styels/app.css";
+import "../src/styels/comments.css";
 
 const App = () => {
   return (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styels/app.css";
+import "../styels/comments.css";
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);

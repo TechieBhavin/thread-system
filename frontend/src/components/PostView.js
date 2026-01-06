@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Comment from "./Comment";
 import { useParams } from "react-router-dom";
-import "../styels/comments.css";
+import "../styels/app.css";
 
 const PostView = () => {
   const [post, setPost] = useState(null);
