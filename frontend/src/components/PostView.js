@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Comment from "./Comment";
-import CommentForm from "./CommentForm";
 
 const PostView = () => {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
-  const [replyTo, setReplyTo] = useState(null);
+  const [newComment, setNewComment] = useState("");
 
   const POST_ID = "695d1d50c43e73bf6f95fd0c";
 
@@ -13,6 +12,24 @@ const PostView = () => {
     fetch(`http://localhost:5005/api/comments/${POST_ID}`)
       .then((res) => res.json())
       .then((data) => setComments(data));
+  };
+
+  const addTopLevelComment = async () => {
+    if (!newComment.trim()) return;
+
+    await fetch("http://localhost:5005/api/comments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        postId: POST_ID,
+        content: newComment
+      })
+    });
+
+    setNewComment("");
+    fetchComments();
   };
 
   useEffect(() => {
@@ -26,32 +43,35 @@ const PostView = () => {
   if (!post) return <p>Loading...</p>;
 
   return (
-    <div>
-      <h1>{post.title}</h1>
-      <p>{post.content}</p>
+  <div className="container">
+    <h1 className="post-title">{post.title}</h1>
+    <p className="post-content">{post.content}</p>
 
-      <hr />
+    <hr />
 
-      <h3>Comments</h3>
+    <h3 className="comments-title">Comments</h3>
 
-      <CommentForm
+    <textarea
+      rows={3}
+      placeholder="Add a comment..."
+      value={newComment}
+      onChange={(e) => setNewComment(e.target.value)}
+    />
+    <button onClick={addTopLevelComment}>Add Comment</button>
+
+    {comments.map((comment) => (
+      <Comment
+        key={comment._id}
+        comment={comment}
         postId={POST_ID}
-        parentComment={replyTo}
-        onSuccess={() => {
-          setReplyTo(null);
-          fetchComments();
-        }}
+        refreshComments={fetchComments}
       />
+    ))}
+  </div>
+);
 
-      {comments.map((comment) => (
-        <Comment
-          key={comment._id}
-          comment={comment}
-          onReply={setReplyTo}
-        />
-      ))}
-    </div>
-  );
 };
 
 export default PostView;
+
+
