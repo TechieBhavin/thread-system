@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Comment from "./Comment";
+import { useParams } from "react-router-dom";
 
 const PostView = () => {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
-  const POST_ID = "695d1d50c43e73bf6f95fd0c";
+  const { id: POST_ID } = useParams();
 
   const fetchComments = () => {
     fetch(`http://localhost:5005/api/comments/${POST_ID}`)

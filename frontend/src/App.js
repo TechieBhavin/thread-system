@@ -1,11 +1,14 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
+import PostList from "./components/PostList";
 import PostView from "./components/PostView";
 
 const App = () => {
   return (
-    <div style={{ maxWidth: "800px", margin: "40px auto" }}>
-      <PostView />
-    </div>
+    <Routes>
+      <Route path="/" element={<PostList />} />
+      <Route path="/post/:id" element={<PostView />} />
+    </Routes>
   );
 };
 
