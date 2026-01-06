@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Comment = ({ comment, postId, level = 0, refreshComments }) => {
-  const [showReplyBox, setShowReplyBox] = useState(false);
+  const [isReplying, setIsReplying] = useState(false);
   const [replyText, setReplyText] = useState("");
 
   const handleReplySubmit = async () => {
@@ -10,40 +10,49 @@ const Comment = ({ comment, postId, level = 0, refreshComments }) => {
     await fetch("http://localhost:5005/api/comments", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         postId,
         content: replyText,
-        parentComment: comment._id
-      })
+        parentComment: comment._id,
+      }),
     });
 
     setReplyText("");
-    setShowReplyBox(false);
+    setIsReplying(false);
     refreshComments();
   };
 
   return (
-  <div className={`comment ${level > 0 ? "nested" : ""}`}>
-    <p>{comment.content}</p>
+    <div
+      className="comment"
+      style={{ marginLeft: level * 20 }}
+    >
+      <p>{comment.content}</p>
 
-    <button onClick={() => setShowReplyBox(!showReplyBox)}>Reply</button>
+      <button onClick={() => setIsReplying(true)}>Reply</button>
 
-    {showReplyBox && (
-      <div style={{ marginTop: "8px" }}>
-        <textarea
-          rows={3}
-          placeholder="Write a reply..."
-          value={replyText}
-          onChange={(e) => setReplyText(e.target.value)}
-        />
-        <button onClick={handleReplySubmit}>Submit</button>
-      </div>
-    )}
+      {isReplying && (
+        <div className="reply-box">
+          <p className="replying-label">
+            Replying to: <strong>{comment.content}</strong>
+          </p>
 
-    {comment.replies &&
-      comment.replies.map((reply) => (
+          <textarea
+            value={replyText}
+            onChange={(e) => setReplyText(e.target.value)}
+            placeholder="Write your reply..."
+          />
+
+          <div className="reply-actions">
+            <button onClick={handleReplySubmit}>Submit</button>
+            <button onClick={() => setIsReplying(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
+
+      {comment.replies?.map((reply) => (
         <Comment
           key={reply._id}
           comment={reply}
@@ -52,9 +61,8 @@ const Comment = ({ comment, postId, level = 0, refreshComments }) => {
           refreshComments={refreshComments}
         />
       ))}
-  </div>
-);
-
+    </div>
+  );
 };
 
 export default Comment;
