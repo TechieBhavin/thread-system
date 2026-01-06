@@ -26,6 +26,16 @@ router.post("/", async (req, res) => {
  * @route   GET /api/posts/:id
  * @desc    Get a single post by ID
  */
+
+router.get("/", async (req, res) => {
+  try {
+    const posts = await Post.find().sort({ createdAt: -1 });
+    res.json(posts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 router.get("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
