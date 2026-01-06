@@ -1,11 +1,11 @@
 const express = require("express");
 const Comment = require("../models/Comment");
+const buildCommentTree = require("../utils/buildCommentTree");
 
 const router = express.Router();
 
 /**
- * @route   POST /api/comments
- * @desc    Add a comment or reply
+ * Add comment or reply
  */
 router.post("/", async (req, res) => {
   try {
@@ -24,15 +24,17 @@ router.post("/", async (req, res) => {
 });
 
 /**
- * @route   GET /api/comments/:postId
- * @desc    Get all comments for a post (flat)
+ * Get nested comments for a post
  */
 router.get("/:postId", async (req, res) => {
   try {
-    const comments = await Comment.find({ postId: req.params.postId })
-      .sort({ createdAt: 1 });
+    const comments = await Comment.find({
+      postId: req.params.postId
+    }).sort({ createdAt: 1 });
 
-    res.json(comments);
+    const nestedComments = buildCommentTree(comments);
+
+    res.json(nestedComments);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
