@@ -5,6 +5,7 @@ require("dotenv").config();
 
 
 const postRoutes = require("./routes/post.routes");
+const commentRoutes = require("./routes/comment.routes");
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/posts", postRoutes);  
+app.use("/api/comments", commentRoutes);
 
 // MongoDB connection
 mongoose
