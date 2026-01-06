@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styels/app.css";
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -33,7 +34,7 @@ const PostList = () => {
 
   return (
     <div className="card">
-      <h2>Create Post</h2>
+      <div className="card"><h2>Create Post</h2>
 
       <input
         placeholder="Post title"
@@ -49,7 +50,7 @@ const PostList = () => {
         onChange={(e) => setContent(e.target.value)}
       />
 
-      <button onClick={createPost}>Create Post</button>
+      <button className="primary" onClick={createPost}>Create Post</button></div>
 
       <hr />
 
@@ -64,7 +65,7 @@ const PostList = () => {
           onClick={() => navigate(`/post/${post._id}`)}
         >
           <h4>{post.title}</h4>
-          <p style={{ color: "#57606a" }}>{post.content}</p>
+          <p>{post.content}</p>
         </div>
       ))}
     </div>  

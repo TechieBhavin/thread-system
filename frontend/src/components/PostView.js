@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Comment from "./Comment";
 import { useParams } from "react-router-dom";
+import "../styels/comments.css";
 
 const PostView = () => {
   const [post, setPost] = useState(null);
@@ -44,7 +45,7 @@ const PostView = () => {
   if (!post) return <p>Loading...</p>;
 
   return (
-  <div className="container">
+  <div className="post-container">
     <h1 className="post-title">{post.title}</h1>
     <p className="post-content">{post.content}</p>
 
@@ -52,7 +53,8 @@ const PostView = () => {
 
     <h3 className="comments-title">Comments</h3>
 
-    <textarea
+    <div className="comments-section">
+        <textarea
       rows={3}
       placeholder="Add a comment..."
       value={newComment}
@@ -68,6 +70,9 @@ const PostView = () => {
         refreshComments={fetchComments}
       />
     ))}
+    </div>
+
+    
   </div>
 );
 

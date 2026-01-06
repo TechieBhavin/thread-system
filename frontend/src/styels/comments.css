@@ -1,0 +1,88 @@
+/* ===== Page Wrapper ===== */
+.post-container {
+  max-width: 800px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== Post Content ===== */
+.post-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.post-body {
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ===== Comments ===== */
+.comments-section {
+  margin-top: 40px;
+}
+
+.comment-card {
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.comment-text {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+/* ===== Reply Button ===== */
+.reply-btn {
+  background: transparent;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+  padding: 5px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.reply-btn:hover {
+  background: #2563eb;
+  color: white;
+}
+
+/* ===== Textarea ===== */
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  resize: vertical;
+}
+
+/* ===== Action Buttons ===== */
+.btn-primary {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.btn-primary:hover {
+  background: #1e40af;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #111827;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
